@@ -3,8 +3,6 @@ CONTRIBUTING.md
 /deplist.txt
 /misc
 phpunit.xml
-readme.md
-README
 /artisan
 composer.json
 /libs
