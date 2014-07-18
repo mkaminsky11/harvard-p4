@@ -1,0 +1,13 @@
+Changed snippet title
+javascript
+javascript
+//Start writing here
+function(){
+	var i = "more stuff here";
+}
+//and more stuff
+//why is that
+
+//ung
+
+var i = "something";
