@@ -16,6 +16,9 @@ function ok(){
 		    if(data === "ok"){
 			    window.location = "http://harvardp4-harvardp3.rhcloud.com/all";
 		    }
+		    else{
+			    changeError();
+		    }
 		  },
 		  error: function(xhr, desc, err) {
 		  }

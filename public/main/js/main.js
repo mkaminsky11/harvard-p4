@@ -92,3 +92,47 @@ function search(query){
 	});
 
 }
+
+function downloadFile(url){
+	var r_path = url + "?t=" + Date.now();
+
+	var txtFile = new XMLHttpRequest();
+	txtFile.open("GET", r_path, true);
+	txtFile.onreadystatechange = function()
+	{
+		if (txtFile.readyState === 4) {  // document is ready to parse.
+			if (txtFile.status === 200) {  // file is found
+				var allText = txtFile.responseText; 
+				var array = allText.split("\n");
+				content = array.slice(3).join("\n");
+				
+				document.location = 'data:Application/octet-stream,' +encodeURIComponent(content);
+			}
+		}
+	}
+	txtFile.send(null);
+}
+
+function pdf(url){
+	var r_path = url + "?t=" + Date.now();
+
+	var txtFile = new XMLHttpRequest();
+	txtFile.open("GET", r_path, true);
+	txtFile.onreadystatechange = function()
+	{
+		if (txtFile.readyState === 4) {  // document is ready to parse.
+			if (txtFile.status === 200) {  // file is found
+				var allText = txtFile.responseText; 
+				var array = allText.split("\n");
+				content = array.slice(3);
+				
+				var doc = new jsPDF();
+				for(var i = 0; i < content.length; i++){
+					doc.text(20, 20 + (10 * i), content[i]);
+				}
+				doc.save('Snippet.pdf');
+			}
+		}
+	}
+	txtFile.send(null);
+}

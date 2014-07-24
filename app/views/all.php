@@ -93,7 +93,7 @@
     		$size = sizeof($results);
     		
     		if($size == 0){
-	    		echo("<h2 class='none'>You have no snippets. Make Some!</h2>");
+	    		echo("<h2 class='none'><paper-shadow z='2'></paper-shadow>You have no snippets. Make Some!</h2>");
     		}
     		else{
 	    		for($i = 0; $i < $size; $i++){
@@ -131,27 +131,39 @@
 		    		$content = implode("\n", $array);
 		    		
 		    		
-		    		echo('<div class="snip-item" data-tag="'.$data_tag.'" data-id="'.$path.'" data-title="'.$title.'"><paper-shadow z="2"></paper-shadow><div class="header-item"><h4>'.$title.'</h4><paper-icon-button icon="close" onclick="removeSnip(\''.$path.'\')"></paper-icon-button><paper-icon-button class="edit-button" icon="create" data-path="'.$path.'"></paper-icon-button></div><div class="message-item"><pre><code class="language-'.$lang.'">'.$content.'</code></pre>'.$tags.'</div></div>');
+		    		echo('<div class="snip-item" data-tag="'.$data_tag.'" data-id="'.$path.'" data-title="'.$title.'">
+		    				<paper-shadow z="2"></paper-shadow>
+		    				<div class="header-item">
+		    					<h4>'.$title.'</h4>
+		    				<paper-icon-button icon="close" onclick="removeSnip(\''.$path.'\')"></paper-icon-button>
+		    				<paper-icon-button class="edit-button" icon="create" data-path="'.$path.'"></paper-icon-button>
+		    				<paper-icon-button icon="file-download" onclick="downloadFile(\''.$relative_path.'\')"></paper-icon-button>
+							<paper-icon-button icon="drive-pdf" onclick="pdf(\''.$relative_path.'\')"></paper-icon-button>
+		    			</div>
+		    			<div class="message-item">
+		    				<pre><code class="language-'.$lang.'">'.$content.'</code></pre>'.$tags.'</div>
+		    		</div>');
 	    		}
     		}
     	?>
     	
     </div>
     
-    <script src="http://harvardp4-harvardp3.rhcloud.com/lib/codemirror/lib/codemirror.js"></script>
-	<link rel="stylesheet" href="http://harvardp4-harvardp3.rhcloud.com/lib/codemirror/lib/codemirror.css">
-	<script src = 'http://harvardp4-harvardp3.rhcloud.com/lib/codemirror/mode/css/css.js'></script>
-	<script src = "http://harvardp4-harvardp3.rhcloud.com/lib/codemirror/mode/mode.js"></script>
-	<script src = "http://harvardp4-harvardp3.rhcloud.com/lib/codemirror/mode/swift.js"></script>
-	<link rel='stylesheet' type='text/css' href='http://harvardp4-harvardp3.rhcloud.com/lib/codemirror/theme/theme.css'>
-	<link rel='stylesheet' type='text/css' href='http://harvardp4-harvardp3.rhcloud.com/lib/codemirror/theme/code-your-cloud.css'>
-    <link rel="stylesheet" href="http://harvardp4-harvardp3.rhcloud.com/lib/codemirror/addon/dialog/dialog.css" >
-	<script src="http://harvardp4-harvardp3.rhcloud.com/lib/codemirror/addon/comment/comment.js" ></script>
-	<script src="http://harvardp4-harvardp3.rhcloud.com/lib/codemirror/addon/dialog/dialog.js" ></script>
-	<script src="http://harvardp4-harvardp3.rhcloud.com/lib/codemirror/addon/search/search.all.js" ></script>
-	<script src="http://harvardp4-harvardp3.rhcloud.com/lib/codemirror/addon/edit/edit.min.js"></script>
+    <script src="lib/codemirror/lib/codemirror.js"></script>
+	<link rel="stylesheet" href="lib/codemirror/lib/codemirror.css">
+	<script src = 'lib/codemirror/mode/css/css.js'></script>
+	<script src = "lib/codemirror/mode/mode.js"></script>
+	<script src = "lib/codemirror/mode/swift.js"></script>
+	<link rel='stylesheet' type='text/css' href='lib/codemirror/theme/theme.css'>
+	<link rel='stylesheet' type='text/css' href='lib/codemirror/theme/code-your-cloud.css'>
+    <link rel="stylesheet" href="lib/codemirror/addon/dialog/dialog.css" >
+	<script src="lib/codemirror/addon/comment/comment.js" ></script>
+	<script src="lib/codemirror/addon/dialog/dialog.js" ></script>
+	<script src="lib/codemirror/addon/search/search.all.js" ></script>
+	<script src="lib/codemirror/addon/edit/edit.min.js"></script>
     
-    <script src="http://harvardp4-harvardp3.rhcloud.com/lib/tag/tag.js"></script>
+    <script src="lib/tag/tag.js"></script>
+    <script src="lib/pdf/pdf.js"></script>
     
     <script src="lib/prism/prism.js"></script>
 	<script src="main/js/main.js"></script>
