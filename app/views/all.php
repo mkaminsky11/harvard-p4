@@ -16,6 +16,7 @@
   <link rel="import" href="poly/core-scaffold/core-scaffold.html">
   <link rel="import" href="poly/core-scroll-header-panel/core-scroll-header-panel.html">
   <link rel="import" href="poly/core-style/core-style.html">
+  <link rel="import" href="poly/core-tooltip/core-tooltip.html">
   <link rel="import" href="poly/core-toolbar/core-toolbar.html">
 
   <link rel="import" href="poly/polymer/polymer.html">
@@ -43,30 +44,48 @@
   <script src="js/jquery.js"></script>
 
   <link rel="stylesheet" href="main/css/style.css">
+  <link rel="stylesheet" href="main/css/upload.css">
   <link rel="stylesheet" href="lib/prism/prism.css">
 
   <link rel="shortcut icon" type="image/png" href="favicon.png"/>
   <link rel="shortcut icon" type="image/png" href="http://harvardp4-harvardp3.rhcloud.com/favicon.png"/>
   
-  <link rel="stylesheet" href="http://harvardp4-harvardp3.rhcloud.com/lib/tag/tag.css">
+  <link rel="stylesheet" href="http://harvardp4-harvardp3.rhcloud.com/lib/tag/tag.css">">
+  
+
 </head>
 
 <body>
-	<div class="overlay" style="display:none"></div>
-	<div id="modal" style="display:none">
-		<div class="header-item">
-			<paper-icon-button icon="send" onclick="confirmSend()"></paper-icon-button>
-			<paper-icon-button icon="close" onclick="cancelSend()"></paper-icon-button>
-		</div>
-		<div class="send-item">
-			<div id="editor"></div>
-			
-			<div class="email-div t-div">
-				<div data-tags-input-name="tag" id="tagBox"></div>
-			</div>
-			
+	<div class="upload-panel" style="display:none">
+		<div id="drop_zone">
+			<h4>Drop Files Here</h4>
 		</div>
 	</div>
+	
+	<div class="upload-detect" style="display:none"></div>
+	
+	<div class="setting-panel" style="display:none">
+		<paper-icon-button icon="close" class="close-settings" onclick="settings()"></paper-icon-button>
+		<h3>Color Scheme</h3>
+		<paper-radio-group selected="blue">
+			<paper-radio-button name="blue" label="Dark" id="blue"></paper-radio-button>
+			<paper-radio-button name="gray" label="Light" id="gray"></paper-radio-button>
+			<paper-radio-button name="red" label="Angry" id="red"></paper-radio-button>
+			<paper-radio-button name="green" label="Calm" id="green"></paper-radio-button>
+		</paper-radio-group>
+		
+		<br/>
+		
+		<h3>Other</h3>
+		<div center horizontal layout>
+	      <div flex>Use Tags</div>
+	      <paper-toggle-button id="tag_toggle" checked></paper-toggle-button>
+	    </div>
+		
+		
+	</div>
+    <div class="detect" style="display:none"></div>
+
 	
     <core-toolbar id="mainheader">
       <img src="img/lock.svg" height="24px" class="logo"><span flex>SnipSafe</span>
@@ -75,7 +94,10 @@
       <paper-icon-button icon="add" onclick="new_snip()"></paper-icon-button>
       <input type="text" placeholder="Search" class="search-input">
       <span class="email"><?php echo(Auth::user()->email); ?></span>
+      <paper-icon-button icon="file-upload" onclick="upload()"></paper-icon-button>
+      <paper-icon-button icon="settings" onclick="settings()"></paper-icon-button>
       <paper-icon-button icon="exit-to-app" onclick="logout()"></paper-icon-button>
+      
     </core-toolbar>
     
     <a class="change-div" href="http://harvardp4-harvardp3.rhcloud.com/changepass">
@@ -85,7 +107,7 @@
     </a>
     
     <div class="main-container">
-    
+    	
     	<?php
     		$email = Auth::user()->email;
     		$results = DB::select('select * from snips where email = ?', array($email));
@@ -132,13 +154,25 @@
 		    		
 		    		
 		    		echo('<div class="snip-item" data-tag="'.$data_tag.'" data-id="'.$path.'" data-title="'.$title.'">
-		    				<paper-shadow z="2"></paper-shadow>
+		    				<!--paper-shadow z="2"></paper-shadow-->
 		    				<div class="header-item">
 		    					<h4>'.$title.'</h4>
-		    				<paper-icon-button icon="close" onclick="removeSnip(\''.$path.'\')"></paper-icon-button>
-		    				<paper-icon-button class="edit-button" icon="create" data-path="'.$path.'"></paper-icon-button>
-		    				<paper-icon-button icon="file-download" onclick="downloadFile(\''.$relative_path.'\')"></paper-icon-button>
-							<paper-icon-button icon="drive-pdf" onclick="pdf(\''.$relative_path.'\')"></paper-icon-button>
+		    				
+		    				<core-tooltip label="Remove" class="fancy" position="top">	
+								<paper-icon-button icon="close" onclick="removeSnip(\''.$path.'\')"></paper-icon-button>
+							</core-tooltip>
+							
+							<core-tooltip label="Edit" class="fancy" position="top">		
+		    					<paper-icon-button class="edit-button" icon="create" data-path="'.$path.'"></paper-icon-button>
+		    				</core-tooltip>
+		    				
+		    				<core-tooltip label="Download as text file" class="fancy" position="top">	
+		    					<paper-icon-button icon="file-download" onclick="downloadFile(\''.$relative_path.'\')"></paper-icon-button>
+		    				</core-tooltip>
+		    				
+		    				<core-tooltip label="Download as PDF" class="fancy" position="top">	
+								<paper-icon-button icon="drive-pdf" onclick="pdf(\''.$relative_path.'\')"></paper-icon-button>
+							</core-tooltip>
 		    			</div>
 		    			<div class="message-item">
 		    				<pre><code class="language-'.$lang.'">'.$content.'</code></pre>'.$tags.'</div>
@@ -148,6 +182,8 @@
     	?>
     	
     </div>
+    
+    <paper-toast id="toast" text="File Downloaded!" style="padding-right: 60px;"></paper-toast>
     
     <script src="lib/codemirror/lib/codemirror.js"></script>
 	<link rel="stylesheet" href="lib/codemirror/lib/codemirror.css">
@@ -164,8 +200,11 @@
     
     <script src="lib/tag/tag.js"></script>
     <script src="lib/pdf/pdf.js"></script>
+
     
     <script src="lib/prism/prism.js"></script>
 	<script src="main/js/main.js"></script>
+	<script src="main/js/visual.js"></script>
+	<script src="main/js/upload.js"></script>
 </body>
 </html>

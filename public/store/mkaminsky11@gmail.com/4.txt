@@ -1,13 +1,9 @@
-Changed snippet title
-javascript
-javascript
-//Start writing here
-function(){
-	var i = "more stuff here";
+Changed snippet title2
+java
+java anothertag
+public class Awesome{
+	public static void main(String[] args){
+		println("some string");
+	}
+	//a comment
 }
-//and more stuff
-//why is that
-
-//ung
-
-var i = "something";

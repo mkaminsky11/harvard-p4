@@ -53,6 +53,9 @@
 </head>
 
 <body>
+
+	<script src="http://harvardp4-harvardp3.rhcloud.com/editor/js/global.js"></script>
+	
     <core-toolbar id="mainheader">
       <img src="http://harvardp4-harvardp3.rhcloud.com/img/lock.svg" height="24px" class="logo"><span flex>SnipSafe</span>
       
@@ -64,10 +67,26 @@
    
     
     <div class="lang-div">
-    	<div class="lang-item" onclick="js()"><h4>Javascript</h4></div>
-    	<div class="lang-item" onclick="html()"><h4>HTML</h4></div>
-    	<div class="lang-item" onclick="css()"><h4>CSS</h4></div>
-    	<div class="lang-item" onclick="php()"><h4>PHP</h4></div>
+    
+    	<div id="select">
+	    	<select>
+	    		<option value="text">Text</option>
+	    		<option value="javascript">Javascript</option>
+	    		<option value="php">PHP</option>
+	    		<option value="html">HTML</option>
+	    		<option value="css">CSS</option>
+	    		<option value="java">Java</option>
+	    		<option value="c">C</option>
+	    		<option value="cpp">C++</option>
+	    		<option value="csharp">C#</option>
+	    		<option value="coffeescript">Coffeescript</option>
+	    		<option value="python">Python</option>
+	    		<option value="aspnet">ASP.net</option>
+	    		<option value="http">HTTP</option>
+	    		<option value="ruby">Ruby</option>
+	    	</select>
+	    	<i class="fa fa-angle-down"></i>
+    	</div>
     </div>
     
     <div class="tags-div t-div">

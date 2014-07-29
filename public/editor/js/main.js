@@ -42,18 +42,8 @@ txtFile.onreadystatechange = function()
 			editor.setValue(content);
 			$(".search-input").val(title);
 			
-			if(lang === "javascript"){
-				editor.setOption("mode","text/javascript");
-			}
-			else if(lang === "php"){
-				editor.setOption("mode","application/x-httpd-php");
-			}
-			else if(lang === "css"){
-				editor.setOption("mode","text/css");
-			}
-			else if(lang === "html"){
-				editor.setOption("mode","text/html");
-			}
+			
+			setLang(lang);
 		}
 	}
 }
@@ -102,3 +92,56 @@ function save(){
 	  }
 	});
 }
+
+function setLang(l){
+	if(l === "javascript"){
+		editor.setOption("mode","text/javascript");
+	}
+	else if(l === "php"){
+		editor.setOption("mode","application/x-httpd-php");
+	}
+	else if(l === "css"){
+		editor.setOption("mode","text/css");
+	}
+	else if(l === "html"){
+		editor.setOption("mode","text/html");
+	}
+	else if(l === "java"){
+		editor.setOption("mode","text/x-java");
+	}
+	else if(l === "c"){
+		editor.setOption("mode","text/x-csrc");
+	}
+	else if(l === "cpp"){
+		editor.setOption("mode","text/x-c++src");
+	}
+	else if(l === "csharp"){
+		editor.setOption("mode","text/x-csharp");
+	}
+	else if(l === "coffeescript"){
+		editor.setOption("mode","text/x-coffeescript");
+	}
+	else if(l === "python"){
+		editor.setOption("mode","text/x-python");
+	}
+	else if(l === "aspnet"){
+		editor.setOption("mode","text/x-aspx");
+	}
+	else if(l === "http"){
+		editor.setOption("mode","message/http");
+	}
+	else if(l === "ruby"){
+		editor.setOption("mode","text/x-ruby");
+	}
+	else if(l === "text"){
+		editor.setOption("mode","text");
+	}
+	
+	lang = l;
+	
+	$("#select select").val(l);
+}
+
+$("#select select").on('change', function(){
+	setLang(this.value);
+});

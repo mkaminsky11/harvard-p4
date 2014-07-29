@@ -186,3 +186,39 @@ Route::post('logout', function(){
 	
 	echo("ok");
 });
+
+Route::post('uploadFile', function(){
+	$content = $_POST['content'];
+	$title = "New Snippet";
+	
+	$email = Auth::user()->email;
+	$path = "http://harvardp4-harvardp3.rhcloud.com/editor/".$email."/"; //still have to add id
+	
+	$results = DB::select('select * from snips where email = ?', array($email));
+	
+	$size = sizeof($results);
+	
+	if($size == 0){
+		$path = $path."0";
+	}
+	else{
+		$last_element = $results[$size-1];
+		$last_element_id = $last_element->id;
+		$this_id = $last_element_id + 1;
+		
+		$path = $path.$this_id;
+	}
+	
+	$path = $path.".txt";
+	
+	
+	DB::insert('insert into snips (title, email, path) values (?, ?, ?)', array($title, $email, $path));
+	
+	
+	$relative_path = str_replace("http://harvardp4-harvardp3.rhcloud.com/editor/","store/",$path);
+	
+	$myfile = fopen($relative_path, "w");
+	fwrite($myfile, $content);
+	
+	echo($path);
+});

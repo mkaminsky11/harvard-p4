@@ -54,3 +54,11 @@ The text of the file is read, put into a local file, then downloaded.
 
 <b>9. Downloading a file (PDF)</b>
 The text is retrieved using the path. A new pdf document is created using JsPDF. The lines of the text file are inserted, one by one, into the pdf file, which is downloaded.
+
+<b>10. Uploading a file</b>
+User submits files (via drag and drop) into a <code>div</code>. The contents of these files are read, and have default titles and tags added. The final content, in the format:
+<code><pre>Line1: Title
+Line2: Language
+Line 3: tag1,tag2,tag3,etc...
+Lines 4+: Actual content</pre></code>
+Is submited to <code>uploadFile</code>, and new snippets are created and added.
