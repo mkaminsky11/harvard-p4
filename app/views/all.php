@@ -68,7 +68,7 @@
 		<paper-icon-button icon="close" class="close-settings" onclick="settings()"></paper-icon-button>
 		<h3>Color Scheme</h3>
 		<paper-radio-group selected="blue">
-			<paper-radio-button name="blue" label="Dark" id="blue"></paper-radio-button>
+			<paper-radio-button name="blue" label="Default" id="blue"></paper-radio-button>
 			<paper-radio-button name="gray" label="Light" id="gray"></paper-radio-button>
 			<paper-radio-button name="red" label="Angry" id="red"></paper-radio-button>
 			<paper-radio-button name="green" label="Calm" id="green"></paper-radio-button>
@@ -108,6 +108,9 @@
     
     <div class="main-container">
     	
+    	<div class="snipbar">
+    	
+    	<span id="insert" style="display:none"></span>
     	<?php
     		$email = Auth::user()->email;
     		$results = DB::select('select * from snips where email = ?', array($email));
@@ -180,6 +183,44 @@
 	    		}
     		}
     	?>
+    	
+    	</div>
+    	
+    	<div class="sidebar">
+	    	<div class="side-item quick-item">
+		    	<h5>
+		    		<i class="fa fa-eye"></i>
+		    		Quick View
+		    	</h5>
+	    	</div>
+	    	<div class="sidebar-list">
+	    		<?php
+	    		for($j = 0; $j < $size; $j++){
+	    			$path = $results[$j]->path;
+
+					$relative_path = str_replace("editor","store",$path);
+	    		
+	    			$content_all = file_get_contents($relative_path);
+		    		$content_all = str_replace("<", "&lt;", $content_all);
+		    		$content_all = str_replace(">", "&gt;", $content_all);
+		    		
+		    		$array = explode("\n",$content_all);
+		    		
+		    		$lang = $array[1];
+		    		
+		    		
+		    		$title = $array[0];
+	    		
+		    		echo('
+		    		<div class="side-item goto-item" data-goto="'.$path.'">
+		    			<h5>'.$title.'</h5>
+		    			<h6>'.$lang.'</h6>
+		    		</div>
+		    		');
+		    	}
+	    		?>
+	    	</div>
+    	</div>
     	
     </div>
     

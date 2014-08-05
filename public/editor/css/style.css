@@ -14,7 +14,7 @@ body{
 }
 
 core-toolbar{
-	background-color:#455a64;
+	background-color:#ff7043;
 	position: fixed;
 	top: 0;
 	width: 100%;
@@ -39,7 +39,7 @@ core-toolbar paper-icon-button{
 
 .search-input{
 	color: white;
-	background-color: #78909c;
+	background-color: #ff8a65;
 	border: none;
 	width: 300px;
 	height: 28px;

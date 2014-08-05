@@ -1,4 +1,5 @@
 <?php
+ header("Access-Control-Allow-Origin: *");
 
 /*
 |--------------------------------------------------------------------------
@@ -117,7 +118,42 @@ Route::get('all', function(){
 
 
 Route::post('add-user', function() {
+	
+	$email = $_POST['email'];
+	$password1 = $_POST['password1'];
+	$password2 = $_POST['password2'];
 
+	$rules_email = array(
+	    'email' => 'email|unique:users,email',
+	    'password1' => 'min:6',
+	    'password2' => 'min:6'   
+	); 
+	
+	$validator_email = Validator::make($_POST, $rules_email);
+	
+	if($validator_email->fails()) {
+		echo "Sign Up Failed. Please Check Your Inputs.";
+	}
+	else{
+		if($password1 == $password2){
+			$user = new User;
+			$user->username = $email;
+			$user->password = Hash::make($password1);
+			$user->email = $email;
+			$user->save();
+			
+			mkdir("store/".$email, 0700);
+			
+			if( Auth::attempt( array( 'email'=>$email, 'username'=>$email, 'password'=>$password1 ) ) ) {
+				echo("ok");
+			} 
+		}
+		else{
+			echo "Your Passwords Do Not Match";
+		}
+	}
+
+	/*
 	$email = $_POST['email'];
 	$password1 = $_POST['password1'];
 	$password2 = $_POST['password2'];
@@ -145,7 +181,7 @@ Route::post('add-user', function() {
 	    else{
 		    echo("error");
 	    }
-    }
+    }*/
 });
 
 
@@ -185,6 +221,30 @@ Route::post('logout', function(){
 	Auth::logout();
 	
 	echo("ok");
+});
+
+Route::get('proxy', function(){
+	return View::make('proxy');
+});
+
+Route::post('proxy', function(){
+
+	header('Content-type: application/xml');
+
+	// Website url to open
+	$url = $_POST['url'];
+
+	// Get that website's content
+	$handle = fopen($url, "r");
+
+	// If there is something, read and return
+	if ($handle) {
+	    while (!feof($handle)) {
+	        $buffer = fgets($handle, 4096);
+			echo $buffer;
+		}
+		fclose($handle);
+	}
 });
 
 Route::post('uploadFile', function(){

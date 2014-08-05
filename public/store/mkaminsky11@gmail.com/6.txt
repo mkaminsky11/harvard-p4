@@ -1,7 +1,0 @@
-Javascript snippet
-javascript
-
-//Start writing here
-function init(){
-	var i = "this is a javascript test";
-}

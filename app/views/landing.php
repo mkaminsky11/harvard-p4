@@ -23,13 +23,20 @@
         <hr style="width: 30%;">
         <img src="img/lock.svg" height="100px" style="margin-left:calc(50% - 50px)"><br>
         <h1 class="ghost-header">Cloud-based storage for code snippets</h1><br>
-<a class="ghost-button-green goto" onclick="$('.main').moveTo(4);">GET STARTED</a>
+<a class="ghost-button-green goto" onclick="$('.main').moveTo(5);">GET STARTED</a>
       </section>
       
       <section>
         <!--features-->
         <div class="desc-container">
-          <h3 class="ghost-desc">SnipSafe is a site for storing and editing code snippets. Forgot how to animate using jQuery? Need to keep a Swift cheatsheet handy? With SnipSafe, all of your tips, tricks, and reminders are available anywhere, anytime, on any computer or mobile device.</h3>
+          <h3 class="ghost-desc">SnipSafe is a site for storing and editing code snippets. Forgot how to animate using jQuery? Need to keep a Java cheatsheet handy? With SnipSafe, all of your tips, tricks, and reminders are available anywhere, anytime, on any computer or mobile device.</h3>
+        </div>
+      </section>
+      
+      <section>
+        <!--features-->
+        <div class="desc-container">
+          <h3 class="ghost-desc">SnipSafe allows you to create, update, delete, and upload snippets. It only takes seconds to get started, and is a useful resource for the occasionally forgetful (that's everybody).</h3>
         </div>
       </section>
       

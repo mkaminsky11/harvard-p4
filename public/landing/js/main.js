@@ -50,7 +50,8 @@ function signUp(){
 	    if(data === "ok"){
 		    window.location = "http://harvardp4-harvardp3.rhcloud.com/all";
 	    }
-	    else if(data === "error"){
+	    else{
+	    	$(".error-signup").html(data);
 		    signUpError();
 	    }
 	  },
