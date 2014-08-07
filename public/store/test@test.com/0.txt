@@ -1,0 +1,4 @@
+New Snippet
+javascript
+tag
+exports.foo = require('b').foo;

@@ -1,0 +1,8 @@
+This is a php test with a very long title that is too long for the box in which it is kept
+php
+php php2 php3
+<?
+	$idontknowcplusplus = "this variable name is too long";
+	$iDoKnowCamelCase = "CaMelCaSe";
+	$i_prefer_this_way = "t_h_i_s_i_s_h_o_w_i_d_o_!";
+?>

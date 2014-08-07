@@ -1,0 +1,7 @@
+New Snippet
+css
+snippet
+.something{
+	text-overflow: hidden;
+	width: 20px;
+}

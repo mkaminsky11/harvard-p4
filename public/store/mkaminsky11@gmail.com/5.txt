@@ -1,0 +1,10 @@
+New SnippetName
+html
+snippet omgsomanytags
+<div>testing html here's some html</div>
+<div>and more html</div>
+<span><span>file</span></span>
+
+
+<p>testing testing testing</p>
+<p>why so much testing?</p>

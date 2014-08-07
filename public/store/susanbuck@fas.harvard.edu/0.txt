@@ -1,0 +1,5 @@
+Hello World
+javascript
+snippet javascript example
+var foo = 'bar';
+console.log(foo);
